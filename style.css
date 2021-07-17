@@ -1,45 +1,64 @@
 body {
+    color: aliceblue;
     font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right, rgb(47, 0, 255), rgb(7, 7, 6));
     margin: 0;
-  }
-  .page-title {
-    padding: 80px;
+}
+
+.page-title {
+    /* padding: 80px; */
     text-align: center;
-    background: #2e3131;
+    background: #4d3af8;
     color: white;
-  }
-  .page-title h1 {
-    font-size: 40px;
-  }
-  .navbar {
+}
+
+.page-title h1 {
+    font-size: 20px;
+}
+
+.navbar {
     overflow: hidden;
-    background-color: #333;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-  }
-  .navbar a {
-    float: left;
+    background-color: rgb(17, 2, 58);
+}
+
+.navbar a {
+    float: right;
     display: block;
     color: white;
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-  }
+}
 
 .list-column {
     float: left;
-    width: 50%;
-  }
-  
-  /* Clear floats after the columns */
-  .currency-list:after {
+    width: 60%;
+    height: fit-content;
+    border: #2e3131 solid;
+}
+
+.news-column {
+    float: right;
+    width: 39%;
+    height: fit-content;
+    border: #2e3131 solid;
+}
+
+
+/* Clear floats after the columns */
+
+.currency-list:after {
     content: "";
     display: table;
     clear: both;
-  }
-  footer {
-    padding: 20px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
     text-align: center;
     background: #ddd;
-  }
+    color: indigo;
+}
