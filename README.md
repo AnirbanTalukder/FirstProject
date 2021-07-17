@@ -27,7 +27,7 @@ This project will be used to accomplich the first project
 
 
 ## Demo
-![nameo](file.gif)
+![name](file.gif)
 
 ## Links to deployed page
 * [Deployed page](https://anirbantalukder.github.io/)
