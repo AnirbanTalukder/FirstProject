@@ -1,33 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>Trypto</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
+    <title>Trypto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="page-title">
-  <h1>Trypto</h1>
-  <p>A Cryptocurrency Tracker </p>
-</header>
+    <header class="page-title">
+        <h1>Trypto</h1>
+        <div>A Cryptocurrency Tracker </div>
+    </header>
 
-<nav class="navbar">
-  <a href="#" class="active">Home</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
-  <a href="#" class="right">Link</a>
-</nav>
+    <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="https://www.coinbase.com/price" target="_blank">Coinbase</a>
+        <a href="https://www.coingecko.com/en" target="_blank">Coingecko</a>
+        <a href="https://robinhood.com/us/en/about/crypto/" target="_blank">Robinhood</a>
+    </nav>
 
-<main class="currency-list">
-    <div class="list-column"></div>
-    <div class="news-column"></div>
-</main>
+    <main class="currency-list">
+        <div class="list-column">
+            <table class="w3-table-all">
+                <tr>
+                    <th>Currency</th>
+                    <th>Price</th>
+                    <th>Change</th>
+                </tr>
 
-<footer>
-  <h2>Footer</h2>
-</footer>
+                <tbody id="myTable">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="news-column">
+            <table class="w3-table-all">
+                <tr>
+                    <th>News</th>
+                    <th>Link</th>
+                    <th>Chart</th>
+                </tr>
+
+                <tbody id="myTable-2">
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
+<footer>
+    <h3>Please contact us for any support</h3>
+</footer>
+
 </html>
