@@ -44,6 +44,11 @@ body {
     border: #2e3131 solid;
 }
 
+th,
+td {
+    color: rgb(219, 12, 12);
+}
+
 
 /* Clear floats after the columns */
 
@@ -54,7 +59,7 @@ body {
 }
 
 footer {
-    position: absolute;
+    position: sticky;
     bottom: 0;
     width: 100%;
     padding: 10px;
