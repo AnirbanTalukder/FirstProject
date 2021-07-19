@@ -80,31 +80,30 @@ function getTicker() {
         .catch(err => {
             console.error(err);
         });
-
 }
 
 // fetching individual CRYPTO info using coingecko
-// function getCoin() {
-//     fetch("https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true", {
-//             headers: {
-//                 Accept: "application/json"
-//             }
-//         })
-//         .then(response => {
-//             console.log(response);
-//             return response.json()
-//         })
-//         .then(data => { console.log(data) })
-//         .catch(err => {
-//             console.error(err);
-//         });
+function getCoin() {
+    fetch("https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true", {
+            headers: {
+                Accept: "application/json"
+            }
+        })
+        .then(response => {
+            console.log(response);
+            return response.json()
+        })
+        .then(data => { console.log(data) })
+        .catch(err => {
+            console.error(err);
+        });
 
-// }
+}
 
 
 
 function buildTable(data) {
-    var table = document.getElementById('myTable')
+    var table = document.getElementById('crypto-table')
 
     for (var i = 0; i < data.length; i++) {
         var row = `<tr>
