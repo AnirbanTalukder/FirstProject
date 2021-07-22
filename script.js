@@ -120,8 +120,6 @@ function buildTable(data) {
 
 getTicker();
 
-// getCoin();
-
 
 function search() {
     var input, filter, table, tr, td, i, txtValue;
@@ -143,15 +141,19 @@ function search() {
 }
 
 
+setInterval(function() {
+    var oldTable = document.getElementById('myTable');
+    while (oldTable.childNodes.length > 1) {
+        oldTable.removeChild(oldTable.lastChild);
+    }
+    getTicker()
+}, 30000)
 
+// getCoin();
 // look for api for a multiple keyword search
-
-
 // fetching news 
-
 // var coinid = data[i].name or data[i].id;
 var coinid = 'bitcoin'
-
 
 
 
