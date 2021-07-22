@@ -42,9 +42,9 @@
 // fetching individual crypto info from alpha vantage
 function getData() {
     fetch("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=USD&apikey=FHHX1AIKRVNFSC7N", {
-            "method": "GET",
+        "method": "GET",
 
-        })
+    })
         .then(response => {
             console.log(response);
             return response.json()
@@ -64,10 +64,10 @@ var myArray = []
 // fetching general USD accepting Tickers for cryptocurrencies using coin gecko
 function getTicker() {
     fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=10&page=1&sparkline=false", {
-            headers: {
-                Accept: "application/json"
-            }
-        })
+        headers: {
+            Accept: "application/json"
+        }
+    })
         .then(response => {
             console.log(response);
             return response.json()
@@ -121,36 +121,35 @@ function buildTable(data) {
 
 getTicker();
 
+
+setInterval(function(){
+    var oldTable = document.getElementById('myTable');
+    while (oldTable.childNodes.length > 1) {
+        oldTable.removeChild(oldTable.lastChild);
+    }
+    getTicker()
+}, 30000)
+
 // getCoin();
-
-
-
 // look for api for a multiple keyword search
-
-
 // fetching news 
-
 // var coinid = data[i].name or data[i].id;
- var coinid = 'bitcoin'
-
-
-
+var coinid = 'bitcoin'
 
 fetch("https://bing-news-search1.p.rapidapi.com/news/search?q=" + coinid + "&safeSearch=Off&textFormat=Raw&freshness=Day", {
-	"method": "GET",
-	"headers": {
-		"x-bingapis-sdk": "true",
-		// "accept-language": "english",
-		"x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
-		"x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
-	}
+    "method": "GET",
+    "headers": {
+        "x-bingapis-sdk": "true",
+        // "accept-language": "english",
+        "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
+        "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
+    }
 })
-.then(response => {
-	console.log(response);
-    return response.json()
-})
-.then(data => { console.log(data) })
-.catch(err => {
-	console.error(err);
-});
-    
+    .then(response => {
+        console.log(response);
+        return response.json()
+    })
+    .then(data => { console.log(data) })
+    .catch(err => {
+        console.error(err);
+    });
