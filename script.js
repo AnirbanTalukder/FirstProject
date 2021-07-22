@@ -57,6 +57,7 @@ function getData() {
 }
 
 
+
 var myArray = []
 
 // COIN GECK DOCUMENTATION https://www.coingecko.com/api/documentations/v3#/coins/get_coins__id_
@@ -121,9 +122,10 @@ getTicker();
 
 // getCoin();
 
-function myFunction() {
+
+function search() {
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
+    input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
     table = document.getElementById("crypto-table");
     tr = table.getElementsByTagName("tr");
@@ -139,3 +141,34 @@ function myFunction() {
         }
     }
 }
+
+
+
+// look for api for a multiple keyword search
+
+
+// fetching news 
+
+// var coinid = data[i].name or data[i].id;
+var coinid = 'bitcoin'
+
+
+
+
+fetch("https://bing-news-search1.p.rapidapi.com/news/search?q=" + coinid + "&safeSearch=Off&textFormat=Raw&freshness=Day", {
+        "method": "GET",
+        "headers": {
+            "x-bingapis-sdk": "true",
+            // "accept-language": "english",
+            "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
+            "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
+        }
+    })
+    .then(response => {
+        console.log(response);
+        return response.json()
+    })
+    .then(data => { console.log(data) })
+    .catch(err => {
+        console.error(err);
+    });
