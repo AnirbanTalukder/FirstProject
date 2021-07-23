@@ -42,9 +42,9 @@
 // fetching individual crypto info from alpha vantage
 function getData() {
     fetch("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=USD&apikey=FHHX1AIKRVNFSC7N", {
-        "method": "GET",
+            "method": "GET",
 
-    })
+        })
         .then(response => {
             console.log(response);
             return response.json()
@@ -64,10 +64,10 @@ var myArray = []
 // fetching general USD accepting Tickers for cryptocurrencies using coin gecko
 function getTicker() {
     fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=10&page=1&sparkline=false", {
-        headers: {
-            Accept: "application/json"
-        }
-    })
+            headers: {
+                Accept: "application/json"
+            }
+        })
         .then(response => {
             console.log(response);
             return response.json()
@@ -81,31 +81,30 @@ function getTicker() {
         .catch(err => {
             console.error(err);
         });
-
 }
 
 // fetching individual CRYPTO info using coingecko
-// function getCoin() {
-//     fetch("https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true", {
-//             headers: {
-//                 Accept: "application/json"
-//             }
-//         })
-//         .then(response => {
-//             console.log(response);
-//             return response.json()
-//         })
-//         .then(data => { console.log(data) })
-//         .catch(err => {
-//             console.error(err);
-//         });
+function getCoin() {
+    fetch("https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true", {
+            headers: {
+                Accept: "application/json"
+            }
+        })
+        .then(response => {
+            console.log(response);
+            return response.json()
+        })
+        .then(data => { console.log(data) })
+        .catch(err => {
+            console.error(err);
+        });
 
-// }
+}
 
 
 
 function buildTable(data) {
-    var table = document.getElementById('myTable')
+    var table = document.getElementById('crypto-table')
 
     for (var i = 0; i < data.length; i++) {
         var row = `<tr>
@@ -122,7 +121,27 @@ function buildTable(data) {
 getTicker();
 
 
-setInterval(function(){
+function search() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("crypto-table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+
+setInterval(function() {
     var oldTable = document.getElementById('myTable');
     while (oldTable.childNodes.length > 1) {
         oldTable.removeChild(oldTable.lastChild);
@@ -136,15 +155,17 @@ setInterval(function(){
 // var coinid = data[i].name or data[i].id;
 var coinid = 'bitcoin'
 
+
+
 fetch("https://bing-news-search1.p.rapidapi.com/news/search?q=" + coinid + "&safeSearch=Off&textFormat=Raw&freshness=Day", {
-    "method": "GET",
-    "headers": {
-        "x-bingapis-sdk": "true",
-        // "accept-language": "english",
-        "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
-        "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
-    }
-})
+        "method": "GET",
+        "headers": {
+            "x-bingapis-sdk": "true",
+            // "accept-language": "english",
+            "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
+            "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
+        }
+    })
     .then(response => {
         console.log(response);
         return response.json()

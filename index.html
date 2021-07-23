@@ -17,11 +17,14 @@
     </header>
 
     <nav class="navbar">
+        <input type="text" id="searchInput" onkeyup="search()" placeholder="Search For Currency">
         <a href="#">Home</a>
         <a href="https://www.coinbase.com/price" target="_blank">Coinbase</a>
         <a href="https://www.coingecko.com/en" target="_blank">Coingecko</a>
         <a href="https://robinhood.com/us/en/about/crypto/" target="_blank">Robinhood</a>
     </nav>
+
+
 
     <main class="currency-list">
         <div class="list-column">
@@ -32,7 +35,7 @@
                     <th>Change</th>
                 </tr>
 
-                <tbody id="myTable">
+                <tbody id="crypto-table">
 
                 </tbody>
             </table>
@@ -45,7 +48,7 @@
                     <th>Chart</th>
                 </tr>
 
-                <tbody id="myTable-2">
+                <tbody id="news-table">
 
                 </tbody>
             </table>
@@ -53,15 +56,15 @@
     </main>
 
 
-
+    <footer>
+        <h3>Please contact us for any support</h3>
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="script.js"></script>
 
 </body>
 
-<footer>
-    <h3>Please contact us for any support</h3>
-</footer>
+
 
 </html>
