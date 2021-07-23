@@ -83,31 +83,12 @@ function getTicker() {
         });
 }
 
-// fetching individual CRYPTO info using coingecko
-function getCoin() {
-    fetch("https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true", {
-            headers: {
-                Accept: "application/json"
-            }
-        })
-        .then(response => {
-            console.log(response);
-            return response.json()
-        })
-        .then(data => { console.log(data) })
-        .catch(err => {
-            console.error(err);
-        });
-
-}
-
-
-
 function buildTable(data) {
     var table = document.getElementById('crypto-table')
 
     for (var i = 0; i < data.length; i++) {
         var row = `<tr>
+                            <td> <input class="chkbox" type="checkbox" id="${data[i].name}" onclick="getCoin(${data[i].id})"/> </td>
 							<td>${data[i].name}</td>
 							<td>${data[i].current_price}</td>
 							<td>${data[i].price_change_percentage_24h + "%"}</td>
@@ -118,7 +99,24 @@ function buildTable(data) {
     }
 }
 
-getTicker();
+// fetching individual CRYPTO info using coingecko
+function getCoin(currency) {
+    console.log(currency);
+    fetch(`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`, {
+            headers: {
+                Accept: "application/json"
+            }
+        })
+        .then(response => {
+            console.log("here it is " + response);
+            return response.json()
+        })
+        .then(data => { console.log(data) })
+        .catch(err => {
+            console.error(err);
+        });
+
+}
 
 
 function search() {
@@ -174,3 +172,21 @@ fetch("https://bing-news-search1.p.rapidapi.com/news/search?q=" + coinid + "&saf
     .catch(err => {
         console.error(err);
     });
+
+// function selectCheckBox(event) {
+//     console.log(event);
+
+// Get the checkbox
+// var checkBox = document.getElementById("");
+// // Get the output text
+// var text = document.getElementById("text");
+
+// // If the checkbox is checked, display the output text
+// if (checkBox.checked == true) {
+//     text.style.display = "block";
+// } else {
+//     text.style.display = "none";
+// }
+// }
+
+getTicker();
