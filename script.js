@@ -81,35 +81,16 @@ function getTicker() {
         .catch(err => {
             console.error(err);
         });
-
 }
 
-// fetching individual CRYPTO info using coingecko
-// function getCoin() {
-//     fetch("https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true", {
-//             headers: {
-//                 Accept: "application/json"
-//             }
-//         })
-//         .then(response => {
-//             console.log(response);
-//             return response.json()
-//         })
-//         .then(data => { console.log(data) })
-//         .catch(err => {
-//             console.error(err);
-//         });
-
-// }
-
-
-
 function buildTable(data) {
-    var table = document.getElementById('myTable')
-
+    var table = document.getElementById('crypto-table')
     for (var i = 0; i < data.length; i++) {
+        // <td> <input class="chkbox" type="checkbox" id="${data[i].name}" onclick="getCoin(${data[i].id})"/> </td>
         var row = `<tr>
-							<td>${data[i].name}</td>
+                            
+							<td> <input class="chkbox" type="checkbox" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
+                            <td>${data[i].name}</td>
 							<td>${data[i].current_price}</td>
 							<td>${data[i].price_change_percentage_24h + "%"}</td>
 					  </tr>`
@@ -119,38 +100,95 @@ function buildTable(data) {
     }
 }
 
-getTicker();
+// fetching individual CRYPTO info using coingecko
+function getCoin(event) {
+    var currency = event.target.dataset.currency;
+    console.log(currency);
+    fetch(`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`, {
+            headers: {
+                Accept: "application/json"
+            }
+        })
+        .then(response => {
+            console.log("here it is " + response);
+            return response.json()
+        })
+        .then(data => { console.log(data) })
+        .catch(err => {
+            console.error(err);
+        });
+
+}
+
+
+function search() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("crypto-table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+
+setInterval(function() {
+    var oldTable = document.getElementById('myTable');
+    while (oldTable.childNodes.length > 1) {
+        oldTable.removeChild(oldTable.lastChild);
+    }
+    getTicker()
+}, 30000)
 
 // getCoin();
-
-
-
 // look for api for a multiple keyword search
-
-
 // fetching news 
-
 // var coinid = data[i].name or data[i].id;
- var coinid = 'bitcoin'
-
+var coinid = 'bitcoin'
 
 
 
 fetch("https://bing-news-search1.p.rapidapi.com/news/search?q=" + coinid + "&safeSearch=Off&textFormat=Raw&freshness=Day", {
-	"method": "GET",
-	"headers": {
-		"x-bingapis-sdk": "true",
-		// "accept-language": "english",
-		"x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
-		"x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
-	}
-})
-.then(response => {
-	console.log(response);
-    return response.json()
-})
-.then(data => { console.log(data) })
-.catch(err => {
-	console.error(err);
-});
-    
+        "method": "GET",
+        "headers": {
+            "x-bingapis-sdk": "true",
+            // "accept-language": "english",
+            "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
+            "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
+        }
+    })
+    .then(response => {
+        console.log(response);
+        return response.json()
+    })
+    .then(data => { console.log(data) })
+    .catch(err => {
+        console.error(err);
+    });
+
+// function selectCheckBox(event) {
+//     console.log(event);
+
+// Get the checkbox
+// var checkBox = document.getElementById("");
+// // Get the output text
+// var text = document.getElementById("text");
+
+// // If the checkbox is checked, display the output text
+// if (checkBox.checked == true) {
+//     text.style.display = "block";
+// } else {
+//     text.style.display = "none";
+// }
+// }
+
+getTicker();
