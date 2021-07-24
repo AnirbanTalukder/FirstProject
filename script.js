@@ -119,6 +119,11 @@ function buildTable(data) {
     }
 }
 
+// activate 'check all' functionality for checkboxes
+checkAll(document.querySelector('[data-check-all-container]'))
+
+
+
 getTicker();
 
 // getCoin();
