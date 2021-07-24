@@ -82,12 +82,13 @@ td {
 }
 
 input.chkbox {
-    opacity: 0;
+    opacity: 50%;
 }
 
-input.chkbox:hover {
+
+/* input.chkbox:hover {
     opacity: 1;
-}
+} */
 
 footer {
     position: fixed;

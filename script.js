@@ -85,11 +85,12 @@ function getTicker() {
 
 function buildTable(data) {
     var table = document.getElementById('crypto-table')
-
     for (var i = 0; i < data.length; i++) {
+        // <td> <input class="chkbox" type="checkbox" id="${data[i].name}" onclick="getCoin(${data[i].id})"/> </td>
         var row = `<tr>
-                            <td> <input class="chkbox" type="checkbox" id="${data[i].name}" onclick="getCoin(${data[i].id})"/> </td>
-							<td>${data[i].name}</td>
+                            
+							<td> <input class="chkbox" type="checkbox" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
+                            <td>${data[i].name}</td>
 							<td>${data[i].current_price}</td>
 							<td>${data[i].price_change_percentage_24h + "%"}</td>
 					  </tr>`
@@ -100,7 +101,8 @@ function buildTable(data) {
 }
 
 // fetching individual CRYPTO info using coingecko
-function getCoin(currency) {
+function getCoin(event) {
+    var currency = event.target.dataset.currency;
     console.log(currency);
     fetch(`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`, {
             headers: {
