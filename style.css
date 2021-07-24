@@ -81,6 +81,15 @@ td {
     clear: both;
 }
 
+input.chkbox {
+    opacity: 50%;
+}
+
+
+/* input.chkbox:hover {
+    opacity: 1;
+} */
+
 footer {
     position: fixed;
     bottom: 0;
