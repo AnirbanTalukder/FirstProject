@@ -90,7 +90,6 @@ function buildTable(data) {
         var row = `<tr>
                             
 							<td> <input class="chkbox" type="checkbox" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
-                        
                             <td>${data[i].name}</td>
 							<td>${data[i].current_price}</td>
 							<td>${data[i].price_change_percentage_24h + "%"}</td>
