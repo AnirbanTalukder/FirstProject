@@ -39,9 +39,14 @@ body {
 
 .news-column {
     float: right;
-    width: 39%;
+    width: 40%;
     height: fit-content;
     border: #2e3131 solid;
+}
+
+.container {
+    border: 1px solid white;
+    margin-bottom: 10px;
 }
 
 th,
@@ -54,22 +59,13 @@ td {
 }
 
 #searchInput {
-    /* background-image: url('search.png'); */
-    /* Add a search icon to input */
     background-position: 10px 12px;
-    /* Position the search icon */
     background-repeat: no-repeat;
-    /* Do not repeat the icon image */
     width: 20%;
-    /* Full-width */
     font-size: 16px;
-    /* Increase font-size */
     padding: 10px 10px 10px 40px;
-    /* Add some padding */
     border: 1px solid #ddd;
-    /* Add a grey border */
     margin-bottom: 0px;
-    /* Add some space below the input */
 }
 
 
@@ -99,3 +95,15 @@ footer {
     background: #ddd;
     color: indigo;
 }
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: fit-content;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(119, 247, 15, 0.2);
+}
+
+*/

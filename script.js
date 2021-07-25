@@ -89,7 +89,7 @@ function buildTable(data) {
         // <td> <input class="chkbox" type="checkbox" id="${data[i].name}" onclick="getCoin(${data[i].id})"/> </td>
         var row = `<tr>
                             
-							<td> <input class="chkbox" type="checkbox" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
+							<td> <input class="chkbox" type="checkbox" id="${data[i].id}" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
                             <td>${data[i].name}</td>
 							<td>${data[i].current_price}</td>
 							<td>${data[i].price_change_percentage_24h + "%"}</td>
@@ -103,6 +103,10 @@ function buildTable(data) {
 // fetching individual CRYPTO info using coingecko
 function getCoin(event) {
     var currency = event.target.dataset.currency;
+
+
+
+
     console.log(currency);
     fetch(`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`, {
             headers: {
@@ -110,10 +114,14 @@ function getCoin(event) {
             }
         })
         .then(response => {
-            console.log("here it is " + response);
+
             return response.json()
         })
-        .then(data => { console.log(data) })
+        .then(data => {
+            getNews(currency)
+
+            console.log(data)
+        })
         .catch(err => {
             console.error(err);
         });
@@ -140,55 +148,68 @@ function search() {
     }
 }
 
+function toggleBoxVisibility() {
 
-setInterval(function() {
-    var oldTable = document.getElementById('myTable');
-    while (oldTable.childNodes.length > 1) {
-        oldTable.removeChild(oldTable.lastChild);
-    }
-    getTicker()
-}, 30000)
+    // if (document.querySelector(`.container#${data[i].id}`).length>0) {
+    //     return;
+    // document.getElementsByClassName("container").style.visibility = "visible";
+    // } else {
+    //     // document.getElementById("container").style.visibility = "hidden";
+
+    // }
+}
+
+
+// setInterval(function() {
+//     var oldTable = document.getElementById('myTable');
+//     while (oldTable.childNodes.length > 1) {
+//         oldTable.removeChild(oldTable.lastChild);
+//     }
+//     getTicker()
+// }, 30000)
 
 // getCoin();
 // look for api for a multiple keyword search
 // fetching news 
 // var coinid = data[i].name or data[i].id;
-var coinid = 'bitcoin'
+// var coinid = 'bitcoin'
 
 
 
-fetch("https://bing-news-search1.p.rapidapi.com/news/search?q=" + coinid + "&safeSearch=Off&textFormat=Raw&freshness=Day", {
-        "method": "GET",
-        "headers": {
-            "x-bingapis-sdk": "true",
-            // "accept-language": "english",
-            "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
-            "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
-        }
-    })
-    .then(response => {
-        console.log(response);
-        return response.json()
-    })
-    .then(data => { console.log(data) })
-    .catch(err => {
-        console.error(err);
-    });
+function getNews(coinid) {
+    fetch(`https://bing-news-search1.p.rapidapi.com/news/search?q=${coinid}&safeSearch=Off&textFormat=Raw&freshness=Day`, {
+            "method": "GET",
+            "headers": {
+                "x-bingapis-sdk": "true",
+                // "accept-language": "english",
+                "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
+                "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
+            }
+        })
+        .then(response => {
+            console.log(response);
+            return response.json()
+        })
+        .then(data => {
 
-// function selectCheckBox(event) {
-//     console.log(event);
+            console.log(data.value[0].description);
 
-// Get the checkbox
-// var checkBox = document.getElementById("");
-// // Get the output text
-// var text = document.getElementById("text");
+            if ($(`.container#${coinid}`).length > 0) {
+                if (!$(`input#${coinid}`).checked) {
+                    console.log("reaching here");
+                    $(`.container#${coinid}`).remove();
+                }
+                return;
+            }
+            // console.log($('.container h4').text('this is a test'));
+            var title = $("<div>").addClass('container').attr("id", coinid).text(data.value[0].description);
+            $(".card").append(title);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+}
 
-// // If the checkbox is checked, display the output text
-// if (checkBox.checked == true) {
-//     text.style.display = "block";
-// } else {
-//     text.style.display = "none";
-// }
-// }
+
 
 getTicker();
