@@ -90,6 +90,7 @@ function buildTable(data) {
         var row = `<tr>
                             
 							<td> <input class="chkbox" type="checkbox" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
+                        
                             <td>${data[i].name}</td>
 							<td>${data[i].current_price}</td>
 							<td>${data[i].price_change_percentage_24h + "%"}</td>
@@ -100,6 +101,14 @@ function buildTable(data) {
     }
 }
 
+
+// Clicking anywhere on table to check the box       
+$(document).on('click','tr',function(){
+    $(this).find('input[type="checkbox"]').prop('checked',true);
+    $(this).css('background','lightblue'); 
+   });
+
+     
 // fetching individual CRYPTO info using coingecko
 function getCoin(event) {
     var currency = event.target.dataset.currency;
