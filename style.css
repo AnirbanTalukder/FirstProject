@@ -63,10 +63,10 @@ td {
     width: 15%;
     font-size: 16px;
     padding: 10px 10px 10px 40px;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(9, 7, 32);
     margin-bottom: 0px;
     float: left;
-    color: white;
+    color: rgb(48, 14, 141);
     text-align: center;
     padding: 14px 20px;
     /* text-decoration: none; */
@@ -141,12 +141,13 @@ footer {
 
 @media (min-width: 320px) and (max-width: 480px) {
     #searchInput {
-        /* background-position: 10px 10px; */
+        background-position: 10px 10px;
         text-align: center;
         background-repeat: no-repeat;
         width: 100%;
         font-size: 8px;
         padding: 10px 10px 10px 10px;
+        color: mediumblue;
         border: 1px solid #ddd;
         margin-bottom: 0px;
     }

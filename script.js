@@ -15,8 +15,6 @@ function getData() {
 
 }
 
-
-
 var myArray = []
 
 // COIN GECK DOCUMENTATION https://www.coingecko.com/api/documentations/v3#/coins/get_coins__id_
@@ -54,7 +52,6 @@ function buildTable(data) {
 							<td>${data[i].price_change_percentage_24h + "%"}</td>
 					  </tr>`
         table.innerHTML += row
-
 
     }
 }
@@ -128,13 +125,6 @@ setInterval(function() {
     updateTable();
 }, 15000)
 
-// setInterval(function() {
-//     var oldTable = document.getElementById('crypto-table');
-//     while (oldTable.childNodes.length > 1) {
-//         oldTable.removeChild(oldTable.lastChild);
-//     }
-//     getTicker()
-// }, 30000)
 
 
 function search() {
