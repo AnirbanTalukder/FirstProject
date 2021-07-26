@@ -1,44 +1,3 @@
-// ALPHAvantageAPI key FHHX1AIKRVNFSC7N
-
-// have a form that accepts user inputs  CRYPTO SYMBOL, and PERFERRED CURRENCY and stores those user inputs to variables
-// use the class activity that taught us how to make forms that have autofill so when users start typing symbols, it gives them a dropdown list
-// take the first part of the link and assigns it to a variable
-// var part1 = 'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol='
-// then take user input for crypto symbol and store it in a variable 
-// var crypto = USER CRYPTO INPUT (example: 'BTC')
-// make a variable that is the next part of the fetch call link
-// var part2 = '&market='
-// make a variable that is the user input of what type of currency you are exchanging into
-// var crypto = USER CURRENCY INPUT (emaple: 'USD' us dollars  'CNY' chinese yuan)
-// make a variable for the last part of the fetch link
-// var part3 = '&apikey=FHHX1AIKRVNFSC7NY'
-// each member can get their own api key, we can write a function to rotate the api key every 8 hours so we have 1500 pulls instead of 500
-
-
-// write a function that pulls relavant data such as YESTERDAY's closing price, CURRENT PRICE and stores those to relevant variables, this function will run every 5 minutes
-// write a if statement that compares current price to yeserdays price
-// price up? text color green
-// price up more than 10%? show that change in a unique way  
-// price down? text color orange
-// price down more than 5%? text color red
-// append those variable values into the relavant div in the HTML to display information to USERS
-
-
-
-// we declared variables but havent initialized them
-//  var crypto ;
-//  var currency ;
-// we will create a for loop;
-// for(var i = 0; i<cryptos.length; i++) {
-// crypto = cryptos[i]
-// THEN we are making the call with the value of crypto 
-// }
-
-// https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={{crypto[i]}}&market={{currency}}&apikey=FHHX1AIKRVNFSC7N
-
-
-
-
 // fetching individual crypto info from alpha vantage
 function getData() {
     fetch("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=USD&apikey=FHHX1AIKRVNFSC7N", {
@@ -104,9 +63,6 @@ function buildTable(data) {
 function getCoin(event) {
     var currency = event.target.dataset.currency;
 
-
-
-
     console.log(currency);
     fetch(`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`, {
             headers: {
@@ -120,7 +76,23 @@ function getCoin(event) {
         .then(data => {
             getNews(currency)
 
-            console.log(data)
+
+            if ($(`.container#${currency}-card`).length > 0) {
+                if (!$(`input#${currency}-card`).checked) {
+                    $(`.container#${currency}-card`).remove();
+                }
+                return;
+            }
+
+            var c = $("<div>").addClass('container').attr("id", `${currency}-card`);
+            var image = $("<img>)").attr("src", data.image.small);
+            var link = $("<a>").attr("href", data.links.homepage[0]).text(currency);
+            c.append(image, link);
+            $(".currency-card").append(c);
+
+
+
+            console.log(data);
         })
         .catch(err => {
             console.error(err);
@@ -136,7 +108,9 @@ function search() {
     table = document.getElementById("crypto-table");
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
+        td = tr[i].getElementsByTagName("td")[1];
+        console.log(td)
+
         if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -148,31 +122,6 @@ function search() {
     }
 }
 
-function toggleBoxVisibility() {
-
-    // if (document.querySelector(`.container#${data[i].id}`).length>0) {
-    //     return;
-    // document.getElementsByClassName("container").style.visibility = "visible";
-    // } else {
-    //     // document.getElementById("container").style.visibility = "hidden";
-
-    // }
-}
-
-
-// setInterval(function() {
-//     var oldTable = document.getElementById('myTable');
-//     while (oldTable.childNodes.length > 1) {
-//         oldTable.removeChild(oldTable.lastChild);
-//     }
-//     getTicker()
-// }, 30000)
-
-// getCoin();
-// look for api for a multiple keyword search
-// fetching news 
-// var coinid = data[i].name or data[i].id;
-// var coinid = 'bitcoin'
 
 
 
@@ -196,20 +145,19 @@ function getNews(coinid) {
 
             if ($(`.container#${coinid}`).length > 0) {
                 if (!$(`input#${coinid}`).checked) {
-                    console.log("reaching here");
                     $(`.container#${coinid}`).remove();
                 }
                 return;
             }
-            // console.log($('.container h4').text('this is a test'));
+
             var title = $("<div>").addClass('container').attr("id", coinid).text(data.value[0].description);
-            $(".card").append(title);
+            $(".news-card").append(title);
+
         })
         .catch(err => {
             console.error(err);
         });
 }
-
 
 
 getTicker();
