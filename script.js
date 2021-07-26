@@ -100,6 +100,14 @@ function getCoin(event) {
 
 }
 
+setInterval(function() {
+    var oldTable = document.getElementById('crypto-table');
+    while (oldTable.childNodes.length > 1) {
+        oldTable.removeChild(oldTable.lastChild);
+    }
+    getTicker()
+}, 30000)
+
 
 function search() {
     var input, filter, table, tr, td, i, txtValue;
@@ -121,7 +129,6 @@ function search() {
         }
     }
 }
-
 
 
 
