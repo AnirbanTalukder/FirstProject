@@ -56,6 +56,11 @@ function buildTable(data) {
     }
 }
 
+$(document).on('click','tr',function(){ 
+    $(this).find('input[type="checkbox"]').prop('checked',true);
+    $(this).css('background','grey'); 
+   });
+
 // fetching individual CRYPTO info using coingecko
 function getCoin(event) {
     var currency = event.target.dataset.currency;
