@@ -40,6 +40,7 @@ function getTicker() {
         });
 }
 
+//Building table out of fetched api data
 function buildTable(data) {
     var table = document.getElementById('crypto-table')
     for (var i = 0; i < data.length; i++) {
@@ -96,6 +97,7 @@ function getCoin(event) {
 
 }
 
+//This will update the data every 15 sec
 function updateTable(data) {
     fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=10&page=1&sparkline=false", {
             headers: {
@@ -125,7 +127,7 @@ setInterval(function() {
 }, 15000)
 
 
-
+//Searching coin from the table
 function search() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchInput");
@@ -148,7 +150,7 @@ function search() {
 }
 
 
-
+//Getting coin specific new and updates
 function getNews(coinid) {
     fetch(`https://bing-news-search1.p.rapidapi.com/news/search?q=${coinid}&safeSearch=Off&textFormat=Raw&freshness=Day`, {
             "method": "GET",
@@ -182,6 +184,5 @@ function getNews(coinid) {
             console.error(err);
         });
 }
-
 
 getTicker();
