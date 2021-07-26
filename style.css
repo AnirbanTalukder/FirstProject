@@ -45,8 +45,7 @@ body {
 }
 
 .container {
-    border: 1px solid white;
-    margin-bottom: 10px;
+    border: 1px solid rgb(80, 14, 235);
 }
 
 th,
@@ -96,14 +95,31 @@ footer {
     color: indigo;
 }
 
-.card {
+.news-card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     width: fit-content;
+    color: cornsilk;
 }
 
-.card:hover {
+.news-card:hover {
     box-shadow: 0 8px 16px 0 rgba(119, 247, 15, 0.2);
 }
 
-*/
+.currency-card {
+    /* max-width: 20%; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.container[id$='-card'] {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 20%;
+    height: fit-content;
+}
+
+.container[id$='-card']:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
