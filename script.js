@@ -40,6 +40,7 @@ function getTicker() {
         });
 }
 
+
 //Building table out of fetched api data
 function buildTable(data) {
     var table = document.getElementById('crypto-table')
@@ -55,6 +56,8 @@ function buildTable(data) {
 
     }
 }
+
+var storageArray = [];
 
 // fetching individual CRYPTO info using coingecko
 function getCoin(event) {
@@ -95,6 +98,25 @@ function getCoin(event) {
             console.error(err);
         });
 
+}
+
+var boxes = document.querySelectorAll("input[type='checkbox']");
+
+for (var i = 0; i < boxes.length; i++) {
+    var box = boxes[i];
+    if (box.hasAttribute("data-currency")) {
+        setupBox(box);
+    }
+}
+
+function setupBox(box) {
+    var storageId = box.getAttribute("data-currency");
+    var oldVal = localStorage.getItem(storageId);
+    box.checked = oldVal === "true" ? true : false;
+
+    box.addEventListener("change", function() {
+        localStorage.setItem(storageId, this.checked);
+    });
 }
 
 //This will update the data every 15 sec
@@ -184,5 +206,7 @@ function getNews(coinid) {
             console.error(err);
         });
 }
+
+
 
 getTicker();
