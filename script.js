@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+// fetching individual crypto info from alpha vantage
+>>>>>>> main
 function getData() {
     fetch("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=USD&apikey=FHHX1AIKRVNFSC7N", {
             "method": "GET",
@@ -48,6 +52,7 @@ function buildTable(data) {
             // <td> <input class="chkbox" type="checkbox" id="${data[i].name}" onclick="getCoin(${data[i].id})"/> </td>
             var row = `<tr id="${data[i].id}">
                             
+<<<<<<< HEAD
 							    <td> <input class="chkbox" type="checkbox"  data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
                                 <td>${data[i].name}</td>
 							    <td class="price">${data[i].current_price}</td>
@@ -56,6 +61,14 @@ function buildTable(data) {
             table.innerHTML += row
     }
 }
+=======
+							<td> <input class="chkbox" type="checkbox" id="${data[i].id}" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
+                            <td>${data[i].name}</td>
+							<td>${data[i].current_price}</td>
+							<td>${data[i].price_change_percentage_24h + "%"}</td>
+					  </tr>`
+        table.innerHTML += row
+>>>>>>> main
 
 function updateTable(data) {
     fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=10&page=1&sparkline=false", {
@@ -95,7 +108,11 @@ setInterval(function() {
 // fetching individual CRYPTO info using coingecko
 function getCoin(event) {
     var currency = event.target.dataset.currency;
+<<<<<<< HEAD
     var currencyArray = [] + event.target.dataset.currency;
+=======
+
+>>>>>>> main
     console.log(currency);
     fetch(`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`, {
             headers: {
@@ -103,10 +120,30 @@ function getCoin(event) {
             }
         })
         .then(response => {
-            console.log("here it is " + response);
+
             return response.json()
         })
-        .then(data => { console.log(data) })
+        .then(data => {
+            getNews(currency)
+
+
+            if ($(`.container#${currency}-card`).length > 0) {
+                if (!$(`input#${currency}-card`).checked) {
+                    $(`.container#${currency}-card`).remove();
+                }
+                return;
+            }
+
+            var c = $("<div>").addClass('container').attr("id", `${currency}-card`);
+            var image = $("<img>)").attr("src", data.image.small);
+            var link = $("<a>").attr("href", data.links.homepage[0]).text(currency);
+            c.append(image, link);
+            $(".currency-card").append(c);
+
+
+
+            console.log(data);
+        })
         .catch(err => {
             console.error(err);
         });
@@ -124,7 +161,9 @@ function search() {
     table = document.getElementById("crypto-table");
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
+        td = tr[i].getElementsByTagName("td")[1];
+        console.log(td)
+
         if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -137,6 +176,7 @@ function search() {
 }
 
 
+<<<<<<< HEAD
 // setInterval(function() {
 //     var oldTable = document.getElementById('crypto-table');
 //     while (oldTable.childNodes.length > 1) {
@@ -146,48 +186,44 @@ function search() {
 // }, 3000)
 
 
-
-// getCoin();
-// look for api for a multiple keyword search
-// fetching news 
-// var coinid = data[i].name or data[i].id;
-var coinid = 'bitcoin'
+=======
+>>>>>>> main
 
 
+function getNews(coinid) {
+    fetch(`https://bing-news-search1.p.rapidapi.com/news/search?q=${coinid}&safeSearch=Off&textFormat=Raw&freshness=Day`, {
+            "method": "GET",
+            "headers": {
+                "x-bingapis-sdk": "true",
+                // "accept-language": "english",
+                "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
+                "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
+            }
+        })
+        .then(response => {
+            console.log(response);
+            return response.json()
+        })
+        .then(data => {
 
-fetch("https://bing-news-search1.p.rapidapi.com/news/search?q=" + coinid + "&safeSearch=Off&textFormat=Raw&freshness=Day", {
-        "method": "GET",
-        "headers": {
-            "x-bingapis-sdk": "true",
-            // "accept-language": "english",
-            "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
-            "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
-        }
-    })
-    .then(response => {
-        console.log(response);
-        return response.json()
-    })
-    .then(data => { console.log(data) })
-    .catch(err => {
-        console.error(err);
-    });
+            console.log(data.value[0].description);
 
-// function selectCheckBox(event) {
-//     console.log(event);
+            if ($(`.container#${coinid}`).length > 0) {
+                if (!$(`input#${coinid}`).checked) {
+                    $(`.container#${coinid}`).remove();
+                }
+                return;
+            }
 
-// Get the checkbox
-// var checkBox = document.getElementById("");
-// // Get the output text
-// var text = document.getElementById("text");
+            var title = $("<div>").addClass('container').attr("id", coinid).text(data.value[0].description);
+            $(".news-card").append(title);
 
-// // If the checkbox is checked, display the output text
-// if (checkBox.checked == true) {
-//     text.style.display = "block";
-// } else {
-//     text.style.display = "none";
-// }
-// }
+        })
+        .catch(err => {
+            console.error(err);
+        });
+}
+
 
 getTicker();
 
