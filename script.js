@@ -43,13 +43,12 @@ function getTicker() {
 function buildTable(data) {
     var table = document.getElementById('crypto-table')
     for (var i = 0; i < data.length; i++) {
-        // <td> <input class="chkbox" type="checkbox" id="${data[i].name}" onclick="getCoin(${data[i].id})"/> </td>
         var row = `<tr>
                             
 							<td> <input class="chkbox" type="checkbox" id="${data[i].id}" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
                             <td>${data[i].name}</td>
-							<td>${data[i].current_price}</td>
-							<td>${data[i].price_change_percentage_24h + "%"}</td>
+                            <td class="price">${data[i].current_price}</td>
+                            <td class="percentage">${data[i].price_change_percentage_24h + "%"}</td>
 					  </tr>`
         table.innerHTML += row
 
