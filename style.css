@@ -141,12 +141,12 @@ footer {
 
 @media (min-width: 320px) and (max-width: 480px) {
     #searchInput {
-        background-position: 10px 12px;
+        /* background-position: 10px 10px; */
         text-align: center;
         background-repeat: no-repeat;
         width: 100%;
         font-size: 8px;
-        padding: 10px 10px 10px 40px;
+        padding: 10px 10px 10px 10px;
         border: 1px solid #ddd;
         margin-bottom: 0px;
     }
@@ -185,18 +185,6 @@ footer {
     }
     input.chkbox {
         opacity: 50%;
-    }
-    /* input.chkbox:hover {
-        opacity: 1;
-    } */
-    footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        padding: auto;
-        text-align: center;
-        background: #ddd;
-        color: indigo;
     }
     .news-card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
