@@ -35,7 +35,7 @@ We have created a real-world web application following these requirements:
 ![Crypto](Cryptos.gif)
 
 ## Links to deployed page
-* [Deployed page](hhttps://anirbantalukder.github.io/FirstProject/)
+* [Deployed page](https://anirbantalukder.github.io/FirstProject/)
 * [Github repo](https://github.com/AnirbanTalukder/FirstProject/)
 
 
