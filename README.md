@@ -26,8 +26,8 @@ We have created a real-world web application following these requirements:
 > Open in browser
 
 ## API Used:
-`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`
-`https://bing-news-search1.p.rapidapi.com/news/search?q=${coinid}&safeSearch=Off&textFormat=Raw&freshness=Day`
+* `https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`
+* `https://bing-news-search1.p.rapidapi.com/news/search?q=${coinid}&safeSearch=Off&textFormat=Raw&freshness=Day`
 
 
 
