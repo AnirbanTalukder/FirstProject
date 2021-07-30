@@ -55,6 +55,7 @@ function buildTable(data) {
         table.innerHTML += row
 
     }
+    console.log(table);
 }
 
 var storageArray = [];
@@ -62,6 +63,8 @@ var storageArray = [];
 // fetching individual CRYPTO info using coingecko
 function getCoin(event) {
     var currency = event.target.dataset.currency;
+    setupBox(currency);
+
 
     console.log(currency);
     fetch(`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`, {
@@ -100,24 +103,26 @@ function getCoin(event) {
 
 }
 
-var boxes = document.querySelectorAll("input[type='checkbox']");
-
-for (var i = 0; i < boxes.length; i++) {
-    var box = boxes[i];
-    if (box.hasAttribute("data-currency")) {
-        setupBox(box);
+function setupBox(currency) {
+    var boxes = document.querySelectorAll("input[type='checkbox']");
+    // console.log(boxes)
+    var box = localStorage.getItem("storedData") === [{}] ? [] : localStorage.getItem("storedData");
+    for (var i = 0; i < boxes.length; i++) {
+        console.log(boxes[i], boxes[i].getAttribute("data-currency"))
+        if (boxes[i].getAttribute("data-currency") === currency) {
+            box.push(boxes[i]);
+        }
     }
+    localStorage.setItem("storedData", JSON.stringify(box));
+    // console.log(box);
+
+    // var storageId = box.getAttribute("data-currency");
+    // var oldVal = localStorage.getItem(storageId);
+    // box.checked = oldVal === "true" ? true : false;
+
+
 }
 
-function setupBox(box) {
-    var storageId = box.getAttribute("data-currency");
-    var oldVal = localStorage.getItem(storageId);
-    box.checked = oldVal === "true" ? true : false;
-
-    box.addEventListener("change", function() {
-        localStorage.setItem(storageId, this.checked);
-    });
-}
 
 //This will update the data every 15 sec
 function updateTable(data) {
@@ -146,7 +151,7 @@ function updateTable(data) {
 
 setInterval(function() {
     updateTable();
-}, 15000)
+}, 3600000)
 
 
 //Searching coin from the table
