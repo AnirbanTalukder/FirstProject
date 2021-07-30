@@ -184,7 +184,7 @@ function getNews(coinid) {
             "headers": {
                 "x-bingapis-sdk": "true",
                 // "accept-language": "english",
-                "x-rapidapi-key": "3ee19568a5mshd30c79da7beed3fp140b8djsn6cdf2cb92913",
+                "x-rapidapi-key": "864c2ad9fdmsh93c4562180d0ce6p11fdd9jsn80d28acb64e3",
                 "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
             }
         })
