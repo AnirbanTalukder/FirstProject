@@ -58,7 +58,6 @@ function buildTable(data) {
     console.log(table);
 }
 
-var storageArray = [];
 
 // fetching individual CRYPTO info using coingecko
 function getCoin(event) {
@@ -102,25 +101,18 @@ function getCoin(event) {
         });
 
 }
+// var box = [];
 
 function setupBox(currency) {
     var boxes = document.querySelectorAll("input[type='checkbox']");
-    // console.log(boxes)
-    var box = localStorage.getItem("storedData") === [{}] ? [] : localStorage.getItem("storedData");
+    var box = [localStorage.getItem("storedData")] === [{}] ? [] : [localStorage.getItem("storedData")];
     for (var i = 0; i < boxes.length; i++) {
         console.log(boxes[i], boxes[i].getAttribute("data-currency"))
         if (boxes[i].getAttribute("data-currency") === currency) {
-            box.push(boxes[i]);
+            box.push(boxes[i])
         }
     }
     localStorage.setItem("storedData", JSON.stringify(box));
-    // console.log(box);
-
-    // var storageId = box.getAttribute("data-currency");
-    // var oldVal = localStorage.getItem(storageId);
-    // box.checked = oldVal === "true" ? true : false;
-
-
 }
 
 
@@ -150,8 +142,8 @@ function updateTable(data) {
 }
 
 setInterval(function() {
-    updateTable();
-}, 3600000)
+        updateTable();
+    }, 18000000) //Price refreshing every 6 hours
 
 
 //Searching coin from the table
