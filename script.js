@@ -34,6 +34,17 @@ function getTicker() {
             myArray = data
             buildTable(myArray)
             console.log(myArray)
+
+            // reading from localstorage
+            const box = JSON.parse(localStorage.getItem("storedData"));
+            console.log(box);
+            if (box && box.length > 0) {
+                box.map(currency => {
+                    $(`input[type='checkbox'][data-currency=${currency}]`).click();
+                    // $(`input[type='checkbox'][data-currency=${currency}]`).prop('checked', true);
+                    // getCoin(currency);
+                });
+            }
         })
         .catch(err => {
             console.error(err);
@@ -47,7 +58,7 @@ function buildTable(data) {
     for (var i = 0; i < data.length; i++) {
         var row = `<tr>
                             
-							<td> <input class="chkbox" type="checkbox" id="${data[i].id}" data-currency="${data[i].id}" onclick="getCoin(event)"/> </td>
+							<td> <input class="chkbox" type="checkbox" id="${data[i].id}" data-currency="${data[i].id}" onclick="checkboxClicked(event)"/> </td>
                             <td>${data[i].name}</td>
                             <td class="price">${data[i].current_price}</td>
                             <td class="percentage">${data[i].price_change_percentage_24h + "%"}</td>
@@ -60,12 +71,8 @@ function buildTable(data) {
 
 
 // fetching individual CRYPTO info using coingecko
-function getCoin(event) {
-    var currency = event.target.dataset.currency;
+function getCoin(currency) {
     setupBox(currency);
-
-
-    console.log(currency);
     fetch(`https://api.coingecko.com/api/v3/coins/${currency}?tickers=true&market_data=true`, {
             headers: {
                 Accept: "application/json"
@@ -92,8 +99,6 @@ function getCoin(event) {
             c.append(image, link);
             $(".currency-card").append(c);
 
-
-
             console.log(data);
         })
         .catch(err => {
@@ -101,15 +106,25 @@ function getCoin(event) {
         });
 
 }
+
+function checkboxClicked(event) {
+    var currency = event.target.dataset.currency;
+
+    getCoin(currency);
+}
 // var box = [];
 
 function setupBox(currency) {
-    var boxes = document.querySelectorAll("input[type='checkbox']");
-    var box = [localStorage.getItem("storedData")] === [{}] ? [] : [localStorage.getItem("storedData")];
-    for (var i = 0; i < boxes.length; i++) {
-        console.log(boxes[i], boxes[i].getAttribute("data-currency"))
-        if (boxes[i].getAttribute("data-currency") === currency) {
-            box.push(boxes[i])
+    var target = $(`input[type='checkbox'][data-currency=${currency}]`);
+    var box = !localStorage.getItem("storedData") ? [] : JSON.parse(localStorage.getItem("storedData"));
+
+    console.log(box, $(target).prop('checked'));
+    if ($(target).prop('checked')) {
+        if (!box.includes(currency)) box.push(currency);
+    } else {
+        if (box.includes(currency)) {
+            const index = box.indexOf(currency);
+            box.splice(index, 1);
         }
     }
     localStorage.setItem("storedData", JSON.stringify(box));
